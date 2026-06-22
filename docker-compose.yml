@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres
+    volumes:
+      - ./src:/mnt/src
+
+  adminer:
+    image: adminer
+    restart: on-failure
+    ports:
+      - 8080:8080
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
